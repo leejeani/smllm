@@ -1,6 +1,7 @@
 
-import warnings
+
 from llm.MyLLM import getChatOpenAI
+import warnings
 warnings.filterwarnings(action='ignore')
 
 if __name__ == '__main__':
