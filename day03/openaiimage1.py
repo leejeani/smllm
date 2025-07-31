@@ -1,3 +1,5 @@
+import urllib
+from IPython.display import Image
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
@@ -11,13 +13,15 @@ response = client.images.create_variation(
 
     model="dall-e-2",
 
-    image=open("dog.png", "rb"),
+    image=open("generated_image.jpg", "rb"),
 
     n=3,
 
     size="1024x1024"
 
 )
+
+
 
 import requests
 
@@ -27,8 +31,10 @@ for n, data in enumerate(response.data):
 
     print(data.url)
 
-    save_path = f"dog_variation_{n}.png"
+    save_path = f"dogs_variation_{n}.png"
 
+    urllib.request.urlretrieve(data.url, save_path)
+"""
     response = requests.get(data.url, stream=True)
 
     if response.status_code == 200:
@@ -43,3 +49,4 @@ for n, data in enumerate(response.data):
     else:
 
         print(f"이미지 다운로드 실패. HTTP 상태 코드: {response.status_code}")
+"""

@@ -1,3 +1,5 @@
+import urllib
+
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
@@ -24,21 +26,9 @@ image_url = response.data[0].url
 print(image_url)
 print(response)
 
-import requests
+image_url = response.data[0].url
+print(image_url)
 
-save_path = "dog.png"
 
-response = requests.get(image_url, stream=True)
+urllib.request.urlretrieve(image_url, "generated_image.jpg")
 
-if response.status_code == 200:
-
-    with open(save_path, 'wb') as file:
-
-        for chunk in response.iter_content(chunk_size=128):
-            file.write(chunk)
-
-    print(f"이미지 다운로드 완료: {save_path}")
-
-else:
-
-    print(f"이미지 다운로드 실패. HTTP 상태 코드: {response.status_code}")
